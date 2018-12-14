@@ -1,0 +1,45 @@
+<div class="options_container">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="TREINAMENTO">
+      <div class='training_container'>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Nº Camadas Ocultas" [(ngModel)]="value">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Nº Neuronios" [(ngModel)]="value">
+        </mat-form-field>
+
+        <mat-form-field style="width: 60%">
+          <mat-select #select_metodo_treinamento placeholder="Função de Ativação " (selectionChange)="onChangeMethod($event.value)"
+            required>
+            <mat-option value="holdout">Sigmoid</mat-option>
+            <mat-option value="kfold">Relu</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<mat-card id="holdout_n" id='holdout_options_container' *ngIf="showHoldout">
+  <h3>HoldOut</h3>
+
+  <mat-slider thumbLabel min="1" [max]="datasetSize-1" [(ngModel)]="holdout_n"></mat-slider>
+
+  <p>Amostras para Treinamento: {{holdout_n}}</p>
+  <p>Amostras para Teste: {{datasetSize-holdout_n}}</p>
+</mat-card>
+
+<mat-card id='kfold_options_container' *ngIf="showKfold">
+  <h3>K-Fold</h3>
+
+  <mat-slider id="kfold_n" thumbLabel min="2" [max]="datasetSize" [(ngModel)]="kfold_k"></mat-slider>
+  <p>K: {{kfold_k}}</p>
+</mat-card>
+
+
+<mat-card class='buttons_control_container'>
+  <div class="example-button-row">
+    <button mat-flat-button color="primary" style="margin-left: 10px" (click)="start()">Iniciar Treinamento</button>
+  </div>
+</mat-card>

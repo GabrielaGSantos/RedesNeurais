@@ -1,0 +1,64 @@
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+
+    <!-- X Column -->
+    <ng-container matColumnDef="x">
+      <mat-header-cell *matHeaderCellDef> X </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never" style="max-width: 60%">
+          <input matInput type="number" placeholder="X" [value]="element.x" [(ngModel)]="element.x" (ngModelChange)="changeElement()">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Y Column -->
+    <ng-container matColumnDef="y">
+      <mat-header-cell *matHeaderCellDef> Y </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never" style="max-width: 60%">
+          <input matInput type="number" placeholder="Y" [value]="element.y" [(ngModel)]="element.y" (ngModelChange)="changeElement()">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Z Column -->
+    <ng-container matColumnDef="z">
+      <mat-header-cell *matHeaderCellDef> Z </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never" style="max-width: 60%">
+          <input matInput type="number" placeholder="Z" [value]="element.z" [(ngModel)]="element.z" (ngModelChange)="changeElement()">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- W Column -->
+    <ng-container matColumnDef="w">
+      <mat-header-cell *matHeaderCellDef> W </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never" style="max-width: 60%">
+          <input matInput type="number" placeholder="W" [value]="element.w" [(ngModel)]="element.w" (ngModelChange)="changeElement()">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Classe Column -->
+    <ng-container matColumnDef="classe">
+      <mat-header-cell *matHeaderCellDef> Classe </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never" style="max-width: 60%">
+          <input matInput type="number" placeholder="Classe" [value]="element.classe" [(ngModel)]="element.classe" (ngModelChange)="changeElement()">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

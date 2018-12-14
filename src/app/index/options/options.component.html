@@ -1,0 +1,31 @@
+<div class="options_container">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="TREINAMENTO">
+      <div class='training_container'>
+        <mat-form-field>
+          <input matInput type="number" max="100" min="0" placeholder="Nº Camadas Ocultas" [(ngModel)]="camadas" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" max="100" min="0" placeholder="Nº Neuronios" [(ngModel)]="neuronios" required>
+        </mat-form-field>
+
+        <mat-form-field style="width: 60%">
+          <mat-select placeholder="Função de Ativação " (selectionChange)="onChangeFuncao($event.value)" required>
+            <mat-option value="sigmoid">Sigmoid</mat-option>
+            <mat-option value="relu">Relu</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p>Taxa de Aprendizagem:</p>
+        <mat-slider max="1" min="0" thumbLabel="true" step="0.01" [(ngModel)]="taxaAprendizagem" required></mat-slider>
+
+        <p>Épocas:</p>
+        <mat-slider max="100" min="0" thumbLabel="true" step="1" [(ngModel)]="epocas" required></mat-slider>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<mat-card class='buttons_control_container'>
+  <div>
+    <button mat-flat-button color="primary" style="margin-left: 10px" (click)="start()">Iniciar Treinamento</button>
+  </div>
+</mat-card>
