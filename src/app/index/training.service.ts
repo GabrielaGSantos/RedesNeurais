@@ -31,6 +31,8 @@ export class TrainingService {
   announceopcoesTreinamento(trainingOptions: TrainingOptions) {
     self.opcoesTreinamentoAnnounceSource.next(trainingOptions)
 
+    console.log(trainingOptions)
+
     self.camadas = trainingOptions.camadas
     self.neuronios = trainingOptions.neuronios
     self.funcaoAtivacao = trainingOptions.funcaoAtivacao
@@ -49,4 +51,5 @@ export class TrainingService {
   }
 
 }
+
 

@@ -21,7 +21,9 @@ import { environment } from '../environments/environment'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatDividerModule } from '@angular/material/divider'
-import { MatChipsModule } from '@angular/material/chips'
+import { MatChipsModule } from '@angular/material/chips';
+import { ResultadoGraficoComponent } from './index/resultado-grafico/resultado-grafico.component'
+import { PlotlyModule } from 'angular-plotly.js';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { MatChipsModule } from '@angular/material/chips'
     MnistOptionsComponent,
     MnistMenuComponent,
     TableComponent,
-    RedeneuralTabelaComponent   
+    RedeneuralTabelaComponent,
+    ResultadoGraficoComponent   
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { MatChipsModule } from '@angular/material/chips'
     MatSliderModule,
     MatDividerModule,
     MatChipsModule,
+    PlotlyModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

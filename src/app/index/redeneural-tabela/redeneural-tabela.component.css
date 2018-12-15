@@ -1,11 +1,9 @@
-mat-slider {
-    width: 300px;
-}
-
-mat-chip {
-    max-width: 200px;
-}
-
-text {
-    pointer-events: none;
-}
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+  
+  .area {
+    fill: lightsteelblue;
+  }

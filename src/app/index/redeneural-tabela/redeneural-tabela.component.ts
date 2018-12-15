@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from "d3";
 import { TrainingOptions } from 'src/app/classes/training-options';
 import { TrainingService } from '../training.service';
-import { Subject } from 'rxjs';
 
 let self: RedeneuralTabelaComponent
 
@@ -11,11 +10,7 @@ let self: RedeneuralTabelaComponent
   templateUrl: './redeneural-tabela.component.html',
   styleUrls: ['./redeneural-tabela.component.css']
 })
-export class RedeneuralTabelaComponent implements OnInit {
-
-  
-
-  color = d3.scaleOrdinal(d3.schemeOranges);
+export class RedeneuralTabelaComponent implements OnInit {  
 
   // radius size
   nodeSize: number = 17;
@@ -34,11 +29,8 @@ export class RedeneuralTabelaComponent implements OnInit {
   epocas: number
 
   constructor(public trainingService: TrainingService) {
-    self = this
-    this.onInputChangeConfig()
-    this.onInputChangeHLayerD()
-    this.onInputChangeHLayer()
-    this.onInputChangeOLayer()
+    self = this    
+    this.trainingService.opcoesTreinamentoAnnounce$.subscribe(this.announceopcoesTreinamento)
   }
 
   ngOnInit() {
@@ -64,30 +56,21 @@ export class RedeneuralTabelaComponent implements OnInit {
     self.funcaoAtivacao = trainingOptions.funcaoAtivacao
     self.taxaAprendizagem = trainingOptions.taxaAprendizagem
     self.epocas = trainingOptions.epocas
+
+    self.onInputChangeConfig()
   }
 
   onInputChangeConfig() {
     console.log("definindo configurações...");
     self.inputlayer = 4
-    self.drawNeuralNetwork();
-  }
+    self.hiddenlayer = self.camadas
+    self.hiddenDepth = self.neuronios 
 
-  onInputChangeHLayer() {
-    self.hiddenlayer = 2
-    self.drawNeuralNetwork();
-  }
-
-  onInputChangeHLayerD() {
-    self.hiddenDepth = 3
     self.hiddenLayersDepths = [];
     for (let i: number = 0; i < +self.hiddenlayer; i++) {
       self.hiddenLayersDepths.push(+self.hiddenDepth);
     }
-    console.log(self.hiddenLayersDepths);
-    self.drawNeuralNetwork();
-  }
 
-  onInputChangeOLayer() {
     self.outputlayer = 2
     self.drawNeuralNetwork();
   }
@@ -117,14 +100,10 @@ export class RedeneuralTabelaComponent implements OnInit {
     };
 
     //construct input layer
-    var newFirstLayer = [];
-
-    console.log(self.inputlayer);
-    console.log(self.hiddenlayer);
-    console.log(self.outputlayer);
+    var newFirstLayer = []
 
     for (var i = 0; i < self.inputlayer; i++) {
-      var newTempLayer = { "label": "i " + i, "layer": 1, "type": 1 };
+      var newTempLayer = { "label": "I " + i, "layer": 1, "type": 1 }
       newFirstLayer.push(newTempLayer);
     }
 
@@ -134,17 +113,17 @@ export class RedeneuralTabelaComponent implements OnInit {
       var newHiddenLayer = [];
       //for the height of this hidden layer
       for (var i = 0; i < self.hiddenLayersDepths[hiddenLayerLoop]; i++) {
-        var newTempLayer = { "label": "h " + hiddenLayerLoop + i, "layer": (hiddenLayerLoop + 2), "type": 2 };
-        newHiddenLayer.push(newTempLayer);
+        var newTempLayer = { "label": "H " + hiddenLayerLoop + i, "layer": (hiddenLayerLoop + 2), "type": 2 };
+        newHiddenLayer.push(newTempLayer)
       }
-      hiddenLayers.push(newHiddenLayer);
+      hiddenLayers.push(newHiddenLayer)
     }
 
     //construct output layer
     var newOutputLayer = [];
     for (var i = 0; i < self.outputlayer; i++) {
-      var newTempLayer = { "label": "o " + i, "layer": self.hiddenlayer + 2, "type": 3 };
-      newOutputLayer.push(newTempLayer);
+      var newTempLayer = { "label": "O" + i, "layer": self.hiddenlayer + 2, "type": 3 }
+      newOutputLayer.push(newTempLayer)
     }
 
     //add to newGraph
@@ -210,8 +189,7 @@ export class RedeneuralTabelaComponent implements OnInit {
       .enter().append("g")
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
-      }
-      );
+      });
 
     var circle = node.append("circle")
       .attr("class", "node")
@@ -229,14 +207,12 @@ export class RedeneuralTabelaComponent implements OnInit {
         return colourValue;
       });
 
-
     node.append("text")
       .attr("dx", "-.35em")
       .attr("dy", ".35em")
       .attr("font-size", ".6em")
       .text(function (d) { return d.label; });
   }
-
 
   formatLabel(value: number | null) {
     if (!value)
