@@ -33,8 +33,6 @@ export class ResultadoGraficoComponent implements OnInit {
   announceopcoesTreinamento(trainingOptions: TrainingOptions) {
     //self.opcoesTreinamentoAnnounceSource.next(trainingOptions)
     console.log("ok")
-    
-    self.epocas.push(trainingOptions.epocas)
 
     self.onInputChangeConfig()
   }
