@@ -23,6 +23,7 @@ export class TableComponent implements OnInit {
    }
 
   ngOnInit() {
+    self.trainingService.announcetable(self.elemento)
   }
 
   // envia os dados da tabela para training.service
@@ -30,7 +31,6 @@ export class TableComponent implements OnInit {
     self.trainingService.announcetable(self.elemento)
   }
 }
-
 
 const ELEMENT_DATA: Elemento[] = [
   { x: 0, y:0, z:0, w:0, classe: 0},

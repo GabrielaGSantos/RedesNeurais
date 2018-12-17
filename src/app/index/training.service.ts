@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { TrainingOptions } from '../classes/training-options';
-import { Elemento } from '../classes/element';
+import { Injectable } from '@angular/core'
+import { Subject } from 'rxjs'
+import { TrainingOptions } from '../classes/training-options'
+import { Elemento } from '../classes/element'
+import { TrainingPattern } from '../classes/training'
+import { shuffle } from '../classes/shuffle-array'
+import { Neuron } from '../classes/neuronio'
+import { NeuralNetwork } from '../classes/neuralNetwork';
 
 let self: TrainingService
 
@@ -9,14 +13,12 @@ let self: TrainingService
   providedIn: 'root'
 })
 
-
 export class TrainingService {
 
-  camadas: number
-  neuronios: number
-  funcaoAtivacao: string
-  taxaAprendizagem: number
-  epocas: number
+  elementos: Elemento[] = []
+  entradas: TrainingPattern[] = []
+  
+  taxaObjetivo: number = 0.01
 
   private opcoesTreinamentoAnnounceSource = new Subject<TrainingOptions>()
   opcoesTreinamentoAnnounce$ = this.opcoesTreinamentoAnnounceSource.asObservable()
@@ -29,27 +31,28 @@ export class TrainingService {
   }
 
   announceopcoesTreinamento(trainingOptions: TrainingOptions) {
+
     self.opcoesTreinamentoAnnounceSource.next(trainingOptions)
 
-    console.log(trainingOptions)
-
-    self.camadas = trainingOptions.camadas
-    self.neuronios = trainingOptions.neuronios
-    self.funcaoAtivacao = trainingOptions.funcaoAtivacao
-    self.taxaAprendizagem = trainingOptions.taxaAprendizagem
-    self.epocas = trainingOptions.epocas
+    self.entradas = self.gerarEntradas()
+    let nnet: NeuralNetwork = new NeuralNetwork(trainingOptions);
+    nnet.train(() => self.entradas, false, trainingOptions.epocas, trainingOptions.taxaAprendizagem, self.taxaObjetivo)
   }
 
   // recebe os valores da tabela verdade do arquivo table em formato ELEMENTO
-  announcetable(elemento: Elemento[]){
-    
-
+  announcetable(elementos: Elemento[]) {
+    this.elementos = elementos
   }
 
-  iniciarAlgoritmo() {
+  gerarEntradas() {
+    let vetorEntradas: TrainingPattern[] = []
 
+    self.elementos.forEach(elemento => {
+      vetorEntradas.push({ input: [elemento.x, elemento.y, elemento.z, elemento.w], output: [elemento.classe] })
+    })
+
+    return vetorEntradas
   }
-
 }
 
 

@@ -44,6 +44,7 @@
     "plotly": "^1.0.6",
     "plotly.js": "^1.42.5",
     "rxjs": "~6.3.3",
+    "shuffle-array": "^1.0.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@ export class ResultadoGraficoComponent implements OnInit {
   
   graph = {
     data: [
-        { x: [0], y: [1] , type: 'scatter', mode: 'lines+points', marker: {color: '#F50057'} }
+        { x: [0, 1, 7, 3], y: [1, 2, 8, 4] , type: 'scatter', mode: 'lines+points', marker: {color: '#F50057'} }
     ],
     layout: {width: 800, height: 400, title: 'Treinamento'}
   }
